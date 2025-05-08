@@ -1,6 +1,6 @@
-import { defineConfig } from 'tsdown'
+import { defineConfig, type Options } from 'tsdown'
 
-const commonBanner = {
+const sharedBanner = {
   author: '三咲智子 Kevin Deng <sxzz@sxzz.moe>',
   homepage: 'https://github.com/sxzz/userscripts',
   supportURL: 'https://github.com/sxzz/userscripts/issues',
@@ -8,19 +8,26 @@ const commonBanner = {
   contributionURL: 'https://github.com/sponsors/sxzz',
 }
 
+const sharedConfig: Options = {
+  platform: 'browser',
+  format: 'iife',
+  outputOptions: {
+    entryFileNames: '[name].user.js',
+  },
+}
+
 export default defineConfig([
   {
     entry: './src/vue-devtools.ts',
-    platform: 'browser',
-    format: 'iife',
+    ...sharedConfig,
     outputOptions: {
-      entryFileNames: '[name].user.js',
+      ...sharedConfig.outputOptions,
       banner: generateBanner({
         name: 'Force Enable Vue Devtools',
         version: '0.0.0',
         description:
           'Force enable Vue Devtools for production-build apps of Vue 2 or Vue 3.',
-        ...commonBanner,
+        ...sharedBanner,
         namespace:
           'https://github.com/sxzz/userscripts/blob/main/dist/vue-devtools.user.js',
         'run-at': 'document-start',
@@ -32,15 +39,14 @@ export default defineConfig([
   },
   {
     entry: './src/macos-font.ts',
-    platform: 'browser',
-    format: 'iife',
+    ...sharedConfig,
     outputOptions: {
-      entryFileNames: '[name].user.js',
+      ...sharedConfig.outputOptions,
       banner: generateBanner({
         name: 'macOS Font',
         version: '1.0.0',
         description: 'Enable antialiased fonts for macOS.',
-        ...commonBanner,
+        ...sharedBanner,
         namespace:
           'https://github.com/sxzz/userscripts/blob/main/dist/macos-font.user.js',
         'run-at': 'document-start',
