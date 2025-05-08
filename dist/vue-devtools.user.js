@@ -22,6 +22,9 @@
 "use strict";
 
 //#region src/vue-devtools.ts
+/* @license
+* Refer from https://github.com/EHfive/userscripts/tree/master/userscripts/enbale-vue-devtools
+*/
 let initted = false;
 main();
 document.addEventListener("DOMContentLoaded", () => {
