@@ -8,30 +8,48 @@ const commonBanner = {
   contributionURL: 'https://github.com/sponsors/sxzz',
 }
 
-export default defineConfig({
-  entry: {
-    'vue-devtools': './src/vue-devtools.ts',
+export default defineConfig([
+  {
+    entry: './src/vue-devtools.ts',
+    platform: 'browser',
+    format: 'iife',
+    outputOptions: {
+      entryFileNames: '[name].user.js',
+      banner: generateBanner({
+        name: 'Force Enable Vue Devtools',
+        version: '0.0.0',
+        description:
+          'Force enable Vue Devtools for production-build apps of Vue 2 or Vue 3.',
+        ...commonBanner,
+        namespace:
+          'https://github.com/sxzz/userscripts/blob/main/dist/vue-devtools.user.js',
+        'run-at': 'document-start',
+        noframes: '',
+        include: '*',
+        downloadURL: `https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/vue-devtools.user.js`,
+      }),
+    },
   },
-  platform: 'browser',
-  format: 'iife',
-
-  outputOptions: {
-    entryFileNames: '[name].user.js',
-    banner: generateBanner({
-      name: 'Force Enable Vue Devtools',
-      version: '0.0.0',
-      description:
-        'Force enable Vue Devtools for production-build apps of Vue 2 or Vue 3.',
-      ...commonBanner,
-      namespace:
-        'https://github.com/sxzz/userscripts/blob/main/dist/vue-devtools.user.js',
-      'run-at': 'document-start',
-      noframes: '',
-      include: '*',
-      downloadURL: `https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/vue-devtools.user.js`,
-    }),
+  {
+    entry: './src/macos-font.ts',
+    platform: 'browser',
+    format: 'iife',
+    outputOptions: {
+      entryFileNames: '[name].user.js',
+      banner: generateBanner({
+        name: 'macOS Font',
+        version: '1.0.0',
+        description: 'Enable antialiased fonts for macOS.',
+        ...commonBanner,
+        namespace:
+          'https://github.com/sxzz/userscripts/blob/main/dist/macos-font.user.js',
+        'run-at': 'document-start',
+        include: '*',
+        downloadURL: `https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/macos-font.user.js`,
+      }),
+    },
   },
-})
+])
 
 function generateBanner(properties: Record<string, string>) {
   const maxLength = Math.max(
