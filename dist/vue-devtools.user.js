@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name             Force Enable Vue Devtools
 // @version          0.0.0
-// @author           三咲智子 Kevin Deng <sxzz@sxzz.moe>
 // @description      Force enable Vue Devtools for production-build apps of Vue 2 or Vue 3.
+// @author           三咲智子 Kevin Deng <sxzz@sxzz.moe>
 // @homepage         https://github.com/sxzz/userscripts
 // @supportURL       https://github.com/sxzz/userscripts/issues
-// @namespace        https://github.com/sxzz/userscripts/blob/main/dist/vue-devtools.user.js
 // @license          MIT
 // @contributionURL  https://github.com/sponsors/sxzz
+// @namespace        https://github.com/sxzz/userscripts/blob/main/dist/vue-devtools.user.js
 // @run-at           document-start
 // @noframes         
 // @include          *
@@ -17,7 +17,7 @@
 
 "use strict";
 
-//#region src/vue-devtools/index.ts
+//#region src/vue-devtools.ts
 let initted = false;
 main();
 document.addEventListener("DOMContentLoaded", () => {
