@@ -5,9 +5,8 @@
 let initted = false
 main()
 
-document.addEventListener('DOMContentLoaded', () => {
-  main()
-})
+document.addEventListener('DOMContentLoaded', () => main())
+globalThis.requestIdleCallback?.(() => main())
 
 function main() {
   if (initted) return

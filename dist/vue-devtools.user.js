@@ -2,7 +2,7 @@
 // @name               Force Enable Vue Devtools
 // @name:zh-CN         强制启用 Vue Devtools
 // @name:zh-TW         強制啟用 Vue Devtools
-// @version            1.0.0
+// @version            1.0.1
 // @description        Force enable Vue Devtools for production-build apps of Vue 2 or Vue 3.
 // @description:zh-CN  强制启用 Vue Devtools，适用于 Vue 2 或 Vue 3 的生产环境构建应用。
 // @description:zh-TW  強制啟用 Vue Devtools，適用於 Vue 2 或 Vue 3 的生產環境構建應用。
@@ -19,7 +19,6 @@
 // ==/UserScript==
 (function() {
 
-"use strict";
 
 //#region src/vue-devtools.ts
 /* @license
@@ -27,9 +26,8 @@
 */
 let initted = false;
 main();
-document.addEventListener("DOMContentLoaded", () => {
-	main();
-});
+document.addEventListener("DOMContentLoaded", () => main());
+globalThis.requestIdleCallback?.(() => main());
 function main() {
 	if (initted) return;
 	const devtoolsHook = getDevtoolsHook();
@@ -80,7 +78,7 @@ function checkVue3Instance(target) {
 	return !!app;
 }
 function observePage() {
-	const roots = new WeakSet();
+	const roots = /* @__PURE__ */ new WeakSet();
 	const observer = new MutationObserver(() => {
 		for (const el of Array.from(document.querySelectorAll("*"))) if (checkVue3Instance(el)) {
 			const app = el.__vue_app__;

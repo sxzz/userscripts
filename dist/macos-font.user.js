@@ -18,7 +18,6 @@
 // ==/UserScript==
 (function() {
 
-"use strict";
 
 //#region src/macos-font.ts
 document.body.style.setProperty("-webkit-font-smoothing", "antialiased", "important");

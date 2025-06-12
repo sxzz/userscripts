@@ -26,7 +26,7 @@ export default defineConfig([
         name: 'Force Enable Vue Devtools',
         'name:zh-CN': '强制启用 Vue Devtools',
         'name:zh-TW': '強制啟用 Vue Devtools',
-        version: '1.0.0',
+        version: '1.0.1',
         description:
           'Force enable Vue Devtools for production-build apps of Vue 2 or Vue 3.',
         'description:zh-CN':
