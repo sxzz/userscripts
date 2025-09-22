@@ -12,7 +12,7 @@
 // @license            MIT
 // @contributionURL    https://github.com/sponsors/sxzz
 // @run-at             document-end
-// @include            https://www.npmjs.com/package/*/access
+// @include            https://www.npmjs.com/package/*
 // @grant              GM_xmlhttpRequest
 // @namespace          https://github.com/sxzz/userscripts/blob/main/dist/npm-trusted-publisher.user.js
 // @downloadURL        https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/npm-trusted-publisher.user.js
@@ -1735,6 +1735,10 @@ var import_lib = /* @__PURE__ */ __toESM(require_lib(), 1);
 	observe();
 	function observe() {
 		const observer = new MutationObserver(() => {
+			if (document.querySelector("#deleteOidc")) {
+				observer.disconnect();
+				return;
+			}
 			const button = document.querySelector("button[aria-label=\"Add Trusted Publisher connection for GitHub Actions\"]");
 			if (!button) return;
 			process$1(button);

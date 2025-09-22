@@ -60,7 +60,7 @@ const scripts: ScriptConfig[] = [
       'description:zh-TW': '為 npmjs.com 上的包設定 npm Trusted Publisher。',
       ...sharedBanner,
       'run-at': 'document-end',
-      include: 'https://www.npmjs.com/package/*/access',
+      include: 'https://www.npmjs.com/package/*',
       grant: 'GM_xmlhttpRequest',
     },
   },

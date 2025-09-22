@@ -5,6 +5,11 @@ observe()
 
 function observe() {
   const observer = new MutationObserver(() => {
+    if (document.querySelector<HTMLFormElement>('#deleteOidc')) {
+      observer.disconnect()
+      return
+    }
+
     const button = document.querySelector<HTMLButtonElement>(
       'button[aria-label="Add Trusted Publisher connection for GitHub Actions"]',
     )
