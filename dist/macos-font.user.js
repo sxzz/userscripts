@@ -20,7 +20,7 @@
 
 
 //#region src/macos-font.ts
-document.body.style.setProperty("-webkit-font-smoothing", "antialiased", "important");
+	document.body.style.setProperty("-webkit-font-smoothing", "antialiased", "important");
 
 //#endregion
 })();

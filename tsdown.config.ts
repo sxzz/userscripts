@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { defineConfig, type Options } from 'tsdown'
 
 const sharedBanner = {
@@ -47,11 +48,30 @@ const scripts: ScriptConfig[] = [
       include: '*',
     },
   },
+  {
+    id: 'npm-trusted-publisher',
+    banner: {
+      name: 'Set npm Trusted Publisher',
+      'name:zh-CN': '设置 npm Trusted Publisher',
+      'name:zh-TW': '設定 npm Trusted Publisher',
+      version: '1.0.0',
+      description: 'Set npm Trusted Publisher for packages on npmjs.com.',
+      'description:zh-CN': '为 npmjs.com 上的包设置 npm Trusted Publisher。',
+      'description:zh-TW': '為 npmjs.com 上的包設定 npm Trusted Publisher。',
+      ...sharedBanner,
+      'run-at': 'document-end',
+      include: 'https://www.npmjs.com/package/*/access',
+      grant: 'GM_xmlhttpRequest',
+    },
+  },
 ]
 
 const sharedConfig: Options = {
   platform: 'browser',
   format: 'iife',
+  alias: {
+    url: path.resolve('./url-polyfill.ts'),
+  },
   outputOptions: {
     entryFileNames: '[name].user.js',
   },
