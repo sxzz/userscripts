@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { defineConfig, type Options } from 'tsdown'
+import { defineConfig } from 'tsdown'
 
 const sharedBanner = {
   author: 'Kevin Deng <sxzz@sxzz.moe>',
@@ -66,24 +66,17 @@ const scripts: ScriptConfig[] = [
   },
 ]
 
-const sharedConfig: Options = {
-  platform: 'browser',
-  format: 'iife',
-  alias: {
-    url: path.resolve('./url-polyfill.ts'),
-  },
-  outputOptions: {
-    entryFileNames: '[name].user.js',
-  },
-}
-
 export default defineConfig(
   scripts.map((script) => {
     return {
       entry: `./src/${script.id}.ts`,
-      ...sharedConfig,
+      platform: 'browser',
+      format: 'iife',
+      alias: {
+        url: path.resolve('./url-polyfill.ts'),
+      },
       outputOptions: {
-        ...sharedConfig.outputOptions,
+        entryFileNames: '[name].user.js',
         banner: generateBanner({
           ...script.banner,
           ...sharedBanner,
