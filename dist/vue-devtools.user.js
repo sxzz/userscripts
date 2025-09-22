@@ -6,15 +6,15 @@
 // @description        Force enable Vue Devtools for production-build apps of Vue 2 or Vue 3.
 // @description:zh-CN  强制启用 Vue Devtools，适用于 Vue 2 或 Vue 3 的生产环境构建应用。
 // @description:zh-TW  強制啟用 Vue Devtools，適用於 Vue 2 或 Vue 3 的生產環境構建應用。
-// @author             三咲智子 Kevin Deng <sxzz@sxzz.moe>
+// @author             Kevin Deng <sxzz@sxzz.moe>
 // @homepage           https://github.com/sxzz/userscripts
 // @supportURL         https://github.com/sxzz/userscripts/issues
 // @license            MIT
 // @contributionURL    https://github.com/sponsors/sxzz
-// @namespace          https://github.com/sxzz/userscripts/blob/main/dist/vue-devtools.user.js
 // @run-at             document-start
 // @noframes           
 // @include            *
+// @namespace          https://github.com/sxzz/userscripts/blob/main/dist/vue-devtools.user.js
 // @downloadURL        https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/vue-devtools.user.js
 // ==/UserScript==
 (function() {
