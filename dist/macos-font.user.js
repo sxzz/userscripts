@@ -17,10 +17,5 @@
 // @downloadURL        https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/macos-font.user.js
 // ==/UserScript==
 (function() {
-
-
-//#region src/macos-font.ts
 	document.body.style.setProperty("-webkit-font-smoothing", "antialiased", "important");
-
-//#endregion
 })();

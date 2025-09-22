@@ -18,20 +18,14 @@
 // @downloadURL        https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/npm-trusted-publisher.user.js
 // ==/UserScript==
 (function() {
-
-//#region rolldown:runtime
 	var __create = Object.create;
 	var __defProp = Object.defineProperty;
 	var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 	var __getOwnPropNames = Object.getOwnPropertyNames;
 	var __getProtoOf = Object.getPrototypeOf;
 	var __hasOwnProp = Object.prototype.hasOwnProperty;
-	var __esm = (fn, res) => function() {
-		return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-	};
-	var __commonJS = (cb, mod) => function() {
-		return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-	};
+	var __esmMin = (fn, res) => () => (fn && (res = fn(fn = 0)), res);
+	var __commonJSMin = (cb, mod) => () => (mod || cb((mod = { exports: {} }).exports, mod), mod.exports);
 	var __export = (all) => {
 		let target = {};
 		for (var name in all) __defProp(target, name, {
@@ -55,14 +49,7 @@
 		enumerable: true
 	}) : target, mod));
 	var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-//#endregion
-
-//#region node_modules/.pnpm/lru-cache@11.2.1/node_modules/lru-cache/dist/commonjs/index.js
-	var require_commonjs = /* @__PURE__ */ __commonJS({ "node_modules/.pnpm/lru-cache@11.2.1/node_modules/lru-cache/dist/commonjs/index.js": ((exports) => {
-		/**
-		* @module LRUCache
-		*/
+	var require_commonjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 		Object.defineProperty(exports, "__esModule", { value: true });
 		const defaultPerf = typeof performance === "object" && performance && typeof performance.now === "function" ? performance : Date;
 		const warned = /* @__PURE__ */ new Set();
@@ -143,22 +130,7 @@
 				return this.heap[--this.length];
 			}
 		};
-		/**
-		* Default export, the thing you're using this module to get.
-		*
-		* The `K` and `V` types define the key and value types, respectively. The
-		* optional `FC` type defines the type of the `context` object passed to
-		* `cache.fetch()` and `cache.memo()`.
-		*
-		* Keys and values **must not** be `null` or `undefined`.
-		*
-		* All properties from the options object (with the exception of `max`,
-		* `maxSize`, `fetchMethod`, `memoMethod`, `dispose` and `disposeAfter`) are
-		* added as normal public members. (The listed options are read-only getters.)
-		*
-		* Changing any of these will alter the defaults for subsequent method calls.
-		*/
-		var LRUCache$1 = class LRUCache$1 {
+		exports.LRUCache = class LRUCache$1 {
 			#max;
 			#maxSize;
 			#dispose;
@@ -167,71 +139,23 @@
 			#fetchMethod;
 			#memoMethod;
 			#perf;
-			/**
-			* {@link LRUCache.OptionsBase.perf}
-			*/
 			get perf() {
 				return this.#perf;
 			}
-			/**
-			* {@link LRUCache.OptionsBase.ttl}
-			*/
 			ttl;
-			/**
-			* {@link LRUCache.OptionsBase.ttlResolution}
-			*/
 			ttlResolution;
-			/**
-			* {@link LRUCache.OptionsBase.ttlAutopurge}
-			*/
 			ttlAutopurge;
-			/**
-			* {@link LRUCache.OptionsBase.updateAgeOnGet}
-			*/
 			updateAgeOnGet;
-			/**
-			* {@link LRUCache.OptionsBase.updateAgeOnHas}
-			*/
 			updateAgeOnHas;
-			/**
-			* {@link LRUCache.OptionsBase.allowStale}
-			*/
 			allowStale;
-			/**
-			* {@link LRUCache.OptionsBase.noDisposeOnSet}
-			*/
 			noDisposeOnSet;
-			/**
-			* {@link LRUCache.OptionsBase.noUpdateTTL}
-			*/
 			noUpdateTTL;
-			/**
-			* {@link LRUCache.OptionsBase.maxEntrySize}
-			*/
 			maxEntrySize;
-			/**
-			* {@link LRUCache.OptionsBase.sizeCalculation}
-			*/
 			sizeCalculation;
-			/**
-			* {@link LRUCache.OptionsBase.noDeleteOnFetchRejection}
-			*/
 			noDeleteOnFetchRejection;
-			/**
-			* {@link LRUCache.OptionsBase.noDeleteOnStaleGet}
-			*/
 			noDeleteOnStaleGet;
-			/**
-			* {@link LRUCache.OptionsBase.allowStaleOnFetchAbort}
-			*/
 			allowStaleOnFetchAbort;
-			/**
-			* {@link LRUCache.OptionsBase.allowStaleOnFetchRejection}
-			*/
 			allowStaleOnFetchRejection;
-			/**
-			* {@link LRUCache.OptionsBase.ignoreFetchAbort}
-			*/
 			ignoreFetchAbort;
 			#size;
 			#calculatedSize;
@@ -251,15 +175,6 @@
 			#hasFetchMethod;
 			#hasDisposeAfter;
 			#hasOnInsert;
-			/**
-			* Do not call this method unless you need to inspect the
-			* inner workings of the cache.  If anything returned by this
-			* object is modified in any way, strange breakage may occur.
-			*
-			* These fields are private for a reason!
-			*
-			* @internal
-			*/
 			static unsafeExposeInternals(c) {
 				return {
 					starts: c.#starts,
@@ -285,54 +200,30 @@
 					isStale: (index) => c.#isStale(index)
 				};
 			}
-			/**
-			* {@link LRUCache.OptionsBase.max} (read-only)
-			*/
 			get max() {
 				return this.#max;
 			}
-			/**
-			* {@link LRUCache.OptionsBase.maxSize} (read-only)
-			*/
 			get maxSize() {
 				return this.#maxSize;
 			}
-			/**
-			* The total computed size of items in the cache (read-only)
-			*/
 			get calculatedSize() {
 				return this.#calculatedSize;
 			}
-			/**
-			* The number of items stored in the cache (read-only)
-			*/
 			get size() {
 				return this.#size;
 			}
-			/**
-			* {@link LRUCache.OptionsBase.fetchMethod} (read-only)
-			*/
 			get fetchMethod() {
 				return this.#fetchMethod;
 			}
 			get memoMethod() {
 				return this.#memoMethod;
 			}
-			/**
-			* {@link LRUCache.OptionsBase.dispose} (read-only)
-			*/
 			get dispose() {
 				return this.#dispose;
 			}
-			/**
-			* {@link LRUCache.OptionsBase.onInsert} (read-only)
-			*/
 			get onInsert() {
 				return this.#onInsert;
 			}
-			/**
-			* {@link LRUCache.OptionsBase.disposeAfter} (read-only)
-			*/
 			get disposeAfter() {
 				return this.#disposeAfter;
 			}
@@ -413,10 +304,6 @@
 					}
 				}
 			}
-			/**
-			* Return the number of ms left in the item's TTL. If item is not in cache,
-			* returns `0`. Returns `Infinity` if item is in cache without a defined TTL.
-			*/
 			getRemainingTTL(key) {
 				return this.#keyMap.has(key) ? Infinity : 0;
 			}
@@ -538,77 +425,34 @@
 			#isValidIndex(index) {
 				return index !== void 0 && this.#keyMap.get(this.#keyList[index]) === index;
 			}
-			/**
-			* Return a generator yielding `[key, value]` pairs,
-			* in order from most recently used to least recently used.
-			*/
 			*entries() {
 				for (const i of this.#indexes()) if (this.#valList[i] !== void 0 && this.#keyList[i] !== void 0 && !this.#isBackgroundFetch(this.#valList[i])) yield [this.#keyList[i], this.#valList[i]];
 			}
-			/**
-			* Inverse order version of {@link LRUCache.entries}
-			*
-			* Return a generator yielding `[key, value]` pairs,
-			* in order from least recently used to most recently used.
-			*/
 			*rentries() {
 				for (const i of this.#rindexes()) if (this.#valList[i] !== void 0 && this.#keyList[i] !== void 0 && !this.#isBackgroundFetch(this.#valList[i])) yield [this.#keyList[i], this.#valList[i]];
 			}
-			/**
-			* Return a generator yielding the keys in the cache,
-			* in order from most recently used to least recently used.
-			*/
 			*keys() {
 				for (const i of this.#indexes()) {
 					const k = this.#keyList[i];
 					if (k !== void 0 && !this.#isBackgroundFetch(this.#valList[i])) yield k;
 				}
 			}
-			/**
-			* Inverse order version of {@link LRUCache.keys}
-			*
-			* Return a generator yielding the keys in the cache,
-			* in order from least recently used to most recently used.
-			*/
 			*rkeys() {
 				for (const i of this.#rindexes()) {
 					const k = this.#keyList[i];
 					if (k !== void 0 && !this.#isBackgroundFetch(this.#valList[i])) yield k;
 				}
 			}
-			/**
-			* Return a generator yielding the values in the cache,
-			* in order from most recently used to least recently used.
-			*/
 			*values() {
 				for (const i of this.#indexes()) if (this.#valList[i] !== void 0 && !this.#isBackgroundFetch(this.#valList[i])) yield this.#valList[i];
 			}
-			/**
-			* Inverse order version of {@link LRUCache.values}
-			*
-			* Return a generator yielding the values in the cache,
-			* in order from least recently used to most recently used.
-			*/
 			*rvalues() {
 				for (const i of this.#rindexes()) if (this.#valList[i] !== void 0 && !this.#isBackgroundFetch(this.#valList[i])) yield this.#valList[i];
 			}
-			/**
-			* Iterating over the cache itself yields the same results as
-			* {@link LRUCache.entries}
-			*/
 			[Symbol.iterator]() {
 				return this.entries();
 			}
-			/**
-			* A String value that is used in the creation of the default string
-			* description of an object. Called by the built-in method
-			* `Object.prototype.toString`.
-			*/
 			[Symbol.toStringTag] = "LRUCache";
-			/**
-			* Find a value for which the supplied fn method returns a truthy value,
-			* similar to `Array.find()`. fn is called as `fn(value, key, cache)`.
-			*/
 			find(fn, getOptions = {}) {
 				for (const i of this.#indexes()) {
 					const v = this.#valList[i];
@@ -617,17 +461,6 @@
 					if (fn(value, this.#keyList[i], this)) return this.get(this.#keyList[i], getOptions);
 				}
 			}
-			/**
-			* Call the supplied function on each item in the cache, in order from most
-			* recently used to least recently used.
-			*
-			* `fn` is called as `fn(value, key, cache)`.
-			*
-			* If `thisp` is provided, function will be called in the `this`-context of
-			* the provided object, or the cache if no `thisp` object is provided.
-			*
-			* Does not update age or recenty of use, or iterate over stale values.
-			*/
 			forEach(fn, thisp = this) {
 				for (const i of this.#indexes()) {
 					const v = this.#valList[i];
@@ -636,10 +469,6 @@
 					fn.call(thisp, value, this.#keyList[i], this);
 				}
 			}
-			/**
-			* The same as {@link LRUCache.forEach} but items are iterated over in
-			* reverse order.  (ie, less recently used items are iterated over first.)
-			*/
 			rforEach(fn, thisp = this) {
 				for (const i of this.#rindexes()) {
 					const v = this.#valList[i];
@@ -648,10 +477,6 @@
 					fn.call(thisp, value, this.#keyList[i], this);
 				}
 			}
-			/**
-			* Delete any stale entries. Returns true if anything was removed,
-			* false otherwise.
-			*/
 			purgeStale() {
 				let deleted = false;
 				for (const i of this.#rindexes({ allowStale: true })) if (this.#isStale(i)) {
@@ -660,18 +485,6 @@
 				}
 				return deleted;
 			}
-			/**
-			* Get the extended info about a given entry, to get its value, size, and
-			* TTL info simultaneously. Returns `undefined` if the key is not present.
-			*
-			* Unlike {@link LRUCache#dump}, which is designed to be portable and survive
-			* serialization, the `start` value is always the current timestamp, and the
-			* `ttl` is a calculated remaining time to live (negative if expired).
-			*
-			* Always returns stale values, if their info is found in the cache, so be
-			* sure to check for expirations (ie, a negative {@link LRUCache.Entry#ttl})
-			* if relevant.
-			*/
 			info(key) {
 				const i = this.#keyMap.get(key);
 				if (i === void 0) return void 0;
@@ -693,19 +506,6 @@
 				if (this.#sizes) entry.size = this.#sizes[i];
 				return entry;
 			}
-			/**
-			* Return an array of [key, {@link LRUCache.Entry}] tuples which can be
-			* passed to {@link LRUCache#load}.
-			*
-			* The `start` fields are calculated relative to a portable `Date.now()`
-			* timestamp, even if `performance.now()` is available.
-			*
-			* Stale entries are always included in the `dump`, even if
-			* {@link LRUCache.OptionsBase.allowStale} is false.
-			*
-			* Note: this returns an actual array, not a generator, so it can be more
-			* easily passed around.
-			*/
 			dump() {
 				const arr = [];
 				for (const i of this.#indexes({ allowStale: true })) {
@@ -724,15 +524,6 @@
 				}
 				return arr;
 			}
-			/**
-			* Reset the cache and load in the items in entries in the order listed.
-			*
-			* The shape of the resulting cache may be different if the same options are
-			* not used in both caches.
-			*
-			* The `start` fields are assumed to be calculated relative to a portable
-			* `Date.now()` timestamp, even if `performance.now()` is available.
-			*/
 			load(arr) {
 				this.clear();
 				for (const [key, entry] of arr) {
@@ -743,36 +534,6 @@
 					this.set(key, entry.value, entry);
 				}
 			}
-			/**
-			* Add a value to the cache.
-			*
-			* Note: if `undefined` is specified as a value, this is an alias for
-			* {@link LRUCache#delete}
-			*
-			* Fields on the {@link LRUCache.SetOptions} options param will override
-			* their corresponding values in the constructor options for the scope
-			* of this single `set()` operation.
-			*
-			* If `start` is provided, then that will set the effective start
-			* time for the TTL calculation. Note that this must be a previous
-			* value of `performance.now()` if supported, or a previous value of
-			* `Date.now()` if not.
-			*
-			* Options object may also include `size`, which will prevent
-			* calling the `sizeCalculation` function and just use the specified
-			* number if it is a positive integer, and `noDisposeOnSet` which
-			* will prevent calling a `dispose` function in the case of
-			* overwrites.
-			*
-			* If the `size` (or return value of `sizeCalculation`) for a given
-			* entry is greater than `maxEntrySize`, then the item will not be
-			* added to the cache.
-			*
-			* Will update the recency of the entry.
-			*
-			* If the value is `undefined`, then this is an alias for
-			* `cache.delete(key)`. `undefined` is never stored in the cache.
-			*/
 			set(k, v, setOptions = {}) {
 				if (v === void 0) {
 					this.delete(k);
@@ -849,10 +610,6 @@
 				}
 				return this;
 			}
-			/**
-			* Evict the least recently used item, returning its value or
-			* `undefined` if cache is empty.
-			*/
 			pop() {
 				try {
 					while (this.#size) {
@@ -897,22 +654,6 @@
 				this.#size--;
 				return head;
 			}
-			/**
-			* Check if a key is in the cache, without updating the recency of use.
-			* Will return false if the item is stale, even though it is technically
-			* in the cache.
-			*
-			* Check if a key is in the cache, without updating the recency of
-			* use. Age is updated if {@link LRUCache.OptionsBase.updateAgeOnHas} is set
-			* to `true` in either the options or the constructor.
-			*
-			* Will return `false` if the item is stale, even though it is technically in
-			* the cache. The difference can be determined (if it matters) by using a
-			* `status` argument, and inspecting the `has` field.
-			*
-			* Will not update item age unless
-			* {@link LRUCache.OptionsBase.updateAgeOnHas} is set.
-			*/
 			has(k, hasOptions = {}) {
 				const { updateAgeOnHas = this.updateAgeOnHas, status } = hasOptions;
 				const index = this.#keyMap.get(k);
@@ -933,13 +674,6 @@
 				} else if (status) status.has = "miss";
 				return false;
 			}
-			/**
-			* Like {@link LRUCache#get} but doesn't update recency or delete stale
-			* items.
-			*
-			* Returns `undefined` if the item is stale, unless
-			* {@link LRUCache.OptionsBase.allowStale} is set.
-			*/
 			peek(k, peekOptions = {}) {
 				const { allowStale = this.allowStale } = peekOptions;
 				const index = this.#keyMap.get(k);
@@ -1106,12 +840,6 @@
 				this.set(k, vv, options);
 				return vv;
 			}
-			/**
-			* Return a value from the cache. Will update the recency of the cache
-			* entry found.
-			*
-			* If the key is not found, get() will return `undefined`.
-			*/
 			get(k, getOptions = {}) {
 				const { allowStale = this.allowStale, updateAgeOnGet = this.updateAgeOnGet, noDeleteOnStaleGet = this.noDeleteOnStaleGet, status } = getOptions;
 				const index = this.#keyMap.get(k);
@@ -1150,11 +878,6 @@
 					this.#tail = index;
 				}
 			}
-			/**
-			* Deletes a key out of the cache.
-			*
-			* Returns true if the key was deleted, false otherwise.
-			*/
 			delete(k) {
 				return this.#delete(k, "delete");
 			}
@@ -1200,9 +923,6 @@
 				}
 				return deleted;
 			}
-			/**
-			* Clear the cache entirely, throwing away all values.
-			*/
 			clear() {
 				return this.#clear("delete");
 			}
@@ -1240,12 +960,8 @@
 				}
 			}
 		};
-		exports.LRUCache = LRUCache$1;
-	}) });
-
-//#endregion
-//#region node_modules/.pnpm/hosted-git-info@9.0.0/node_modules/hosted-git-info/lib/hosts.js
-	var require_hosts = /* @__PURE__ */ __commonJS({ "node_modules/.pnpm/hosted-git-info@9.0.0/node_modules/hosted-git-info/lib/hosts.js": ((exports, module) => {
+	}));
+	var require_hosts = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		const maybeJoin = (...args) => args.every((arg) => arg) ? args.join("") : "";
 		const maybeEncode = (arg) => arg ? encodeURIComponent(arg) : "";
 		const formatHashFragment = (f) => f.toLowerCase().replace(/^\W+/g, "").replace(/(?<!\W)\W+$/, "").replace(/\//g, "").replace(/\W+/g, "-");
@@ -1413,19 +1129,13 @@
 		};
 		for (const [name, host] of Object.entries(hosts$1)) hosts$1[name] = Object.assign({}, defaults, host);
 		module.exports = hosts$1;
-	}) });
-
-//#endregion
-//#region url-polyfill.ts
+	}));
 	var url_polyfill_exports = /* @__PURE__ */ __export({ URL: () => URL$1 });
 	var URL$1;
-	var init_url_polyfill = __esm({ "url-polyfill.ts": (() => {
+	var init_url_polyfill = __esmMin((() => {
 		URL$1 = globalThis.URL;
-	}) });
-
-//#endregion
-//#region node_modules/.pnpm/hosted-git-info@9.0.0/node_modules/hosted-git-info/lib/parse-url.js
-	var require_parse_url = /* @__PURE__ */ __commonJS({ "node_modules/.pnpm/hosted-git-info@9.0.0/node_modules/hosted-git-info/lib/parse-url.js": ((exports, module) => {
+	}));
+	var require_parse_url = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		const url = (init_url_polyfill(), __toCommonJS(url_polyfill_exports));
 		const lastIndexOfBefore = (str, char, beforeChar) => {
 			const startPosition = str.indexOf(beforeChar);
@@ -1457,11 +1167,8 @@
 			const withProtocol = protocols ? correctProtocol(giturl, protocols) : giturl;
 			return safeUrl(withProtocol) || safeUrl(correctUrl(withProtocol));
 		};
-	}) });
-
-//#endregion
-//#region node_modules/.pnpm/hosted-git-info@9.0.0/node_modules/hosted-git-info/lib/from-url.js
-	var require_from_url = /* @__PURE__ */ __commonJS({ "node_modules/.pnpm/hosted-git-info@9.0.0/node_modules/hosted-git-info/lib/from-url.js": ((exports, module) => {
+	}));
+	var require_from_url = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		const parseUrl$1 = require_parse_url();
 		const isGitHubShorthand = (arg) => {
 			const firstHash = arg.indexOf("#");
@@ -1533,11 +1240,8 @@
 				opts
 			];
 		};
-	}) });
-
-//#endregion
-//#region node_modules/.pnpm/hosted-git-info@9.0.0/node_modules/hosted-git-info/lib/index.js
-	var require_lib = /* @__PURE__ */ __commonJS({ "node_modules/.pnpm/hosted-git-info@9.0.0/node_modules/hosted-git-info/lib/index.js": ((exports, module) => {
+	}));
+	var import_lib = /* @__PURE__ */ __toESM((/* @__PURE__ */ __commonJSMin(((exports, module) => {
 		const { LRUCache } = require_commonjs();
 		const hosts = require_hosts();
 		const fromUrl = require_from_url();
@@ -1704,11 +1408,7 @@
 		};
 		for (const [name, host] of Object.entries(hosts)) GitHost$1.addHost(name, host);
 		module.exports = GitHost$1;
-	}) });
-
-//#endregion
-//#region src/utils.ts
-var import_lib = /* @__PURE__ */ __toESM(require_lib(), 1);
+	})))(), 1);
 	function sleep(ms) {
 		return new Promise((resolve) => setTimeout(resolve, ms));
 	}
@@ -1729,9 +1429,6 @@ var import_lib = /* @__PURE__ */ __toESM(require_lib(), 1);
 			});
 		});
 	}
-
-//#endregion
-//#region src/npm-trusted-publisher.ts
 	observe();
 	function observe() {
 		const observer = new MutationObserver(() => {
@@ -1847,6 +1544,4 @@ var import_lib = /* @__PURE__ */ __toESM(require_lib(), 1);
 			if (win.location.host === "www.npmjs.com") break;
 		}
 	}
-
-//#endregion
 })();
