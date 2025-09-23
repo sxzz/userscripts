@@ -1438,7 +1438,7 @@
 			}
 			const button = document.querySelector("button[aria-label=\"Add Trusted Publisher connection for GitHub Actions\"]");
 			if (!button) return;
-			process$1(button);
+			autofill(button);
 			observer.disconnect();
 		});
 		observer.observe(document.body, {
@@ -1446,9 +1446,9 @@
 			subtree: true
 		});
 	}
-	async function process$1(button) {
+	async function autofill(button) {
 		button?.click();
-		const repoInfo = await fetchRepoInfo();
+		const [repoInfo] = await Promise.all([fetchRepoInfo(), sleep(100)]);
 		if (!repoInfo) return;
 		while (true) {
 			const ownerInput = document.querySelector("#oidc #oidc_repositoryOwner");
@@ -1457,7 +1457,6 @@
 				console.warn("Failed to find input fields, retrying...");
 				await sleep(100);
 			} else {
-				await sleep(100);
 				ownerInput.value = repoInfo.user;
 				repoInput.value = repoInfo.project;
 				break;
@@ -1473,11 +1472,11 @@
 		}
 		const submitButton = document.querySelector("#oidc button[type=\"submit\"]");
 		if (submitButton) {
-			const enable2FA = document.createElement("div");
-			enable2FA.innerHTML = `<label style="font-size: 20px; font-weight: bold"><input type="checkbox"> Enable 2FA</label>`;
-			const checkbox2FA = enable2FA.querySelector("input");
+			const label2FA = document.createElement("div");
+			label2FA.innerHTML = `<label style="font-size: 20px; font-weight: bold"><input type="checkbox"> Enable 2FA</label>`;
+			submitButton.parentElement?.before(label2FA);
+			const checkbox2FA = label2FA.querySelector("input");
 			checkbox2FA.checked = !document.querySelector("#package-settings_publishingAccess_tfa-always-required")?.checked;
-			submitButton.parentElement?.before(enable2FA);
 			submitButton.style.fontSize = "30px";
 			submitButton.style.fontWeight = "bold";
 			submitButton.addEventListener("click", async (event) => {
@@ -1543,7 +1542,11 @@
 	async function waitWindow(win) {
 		while (true) {
 			await sleep(100);
-			if (win.location.host === "www.npmjs.com") break;
+			let host;
+			try {
+				host = win.location.host;
+			} catch {}
+			if (host === "www.npmjs.com") break;
 		}
 	}
 })();

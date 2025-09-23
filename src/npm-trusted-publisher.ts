@@ -15,7 +15,7 @@ function observe() {
     )
     if (!button) return
 
-    process(button)
+    autofill(button)
     observer.disconnect()
   })
   observer.observe(document.body, {
@@ -24,10 +24,10 @@ function observe() {
   })
 }
 
-async function process(button: HTMLButtonElement) {
+async function autofill(button: HTMLButtonElement) {
   button?.click()
 
-  const repoInfo = await fetchRepoInfo()
+  const [repoInfo] = await Promise.all([fetchRepoInfo(), sleep(100)])
   if (!repoInfo) return
 
   while (true) {
@@ -41,7 +41,6 @@ async function process(button: HTMLButtonElement) {
       console.warn('Failed to find input fields, retrying...')
       await sleep(100)
     } else {
-      await sleep(100)
       ownerInput.value = repoInfo.user
       repoInput.value = repoInfo.project
       break
@@ -64,16 +63,15 @@ async function process(button: HTMLButtonElement) {
     '#oidc button[type="submit"]',
   )
   if (submitButton) {
-    const enable2FA = document.createElement('div')
-    enable2FA.innerHTML = `<label style="font-size: 20px; font-weight: bold"><input type="checkbox"> Enable 2FA</label>`
-    const checkbox2FA = enable2FA.querySelector('input')!
+    const label2FA = document.createElement('div')
+    label2FA.innerHTML = `<label style="font-size: 20px; font-weight: bold"><input type="checkbox"> Enable 2FA</label>`
+    submitButton.parentElement?.before(label2FA)
 
+    const checkbox2FA = label2FA.querySelector('input')!
     const npmRadio2FA = document.querySelector<HTMLInputElement>(
       '#package-settings_publishingAccess_tfa-always-required',
     )
     checkbox2FA.checked = !npmRadio2FA?.checked
-
-    submitButton.parentElement?.before(enable2FA)
 
     submitButton.style.fontSize = '30px'
     submitButton.style.fontWeight = 'bold'
@@ -171,8 +169,11 @@ async function createWindow(
 async function waitWindow(win: Window) {
   while (true) {
     await sleep(100)
-    if (win.location.host === 'www.npmjs.com') {
-      break
-    }
+
+    let host: string | undefined
+    try {
+      host = win.location.host
+    } catch {}
+    if (host === 'www.npmjs.com') break
   }
 }
