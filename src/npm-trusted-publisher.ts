@@ -65,7 +65,14 @@ async function process(button: HTMLButtonElement) {
   )
   if (submitButton) {
     const enable2FA = document.createElement('div')
-    enable2FA.innerHTML = `<label style="font-size: 20px; font-weight: bold"><input type="checkbox" checked> Enable 2FA</label>`
+    enable2FA.innerHTML = `<label style="font-size: 20px; font-weight: bold"><input type="checkbox"> Enable 2FA</label>`
+    const checkbox2FA = enable2FA.querySelector('input')!
+
+    const npmRadio2FA = document.querySelector<HTMLInputElement>(
+      '#package-settings_publishingAccess_tfa-always-required',
+    )
+    checkbox2FA.checked = !npmRadio2FA?.checked
+
     submitButton.parentElement?.before(enable2FA)
 
     submitButton.style.fontSize = '30px'
@@ -74,7 +81,7 @@ async function process(button: HTMLButtonElement) {
       event.stopPropagation()
       event.preventDefault()
 
-      await Promise.all([submitOidc(), submit2FA(enable2FA)])
+      await Promise.all([submitOidc(), submit2FA(checkbox2FA)])
       location.reload()
     })
   }
@@ -92,8 +99,8 @@ async function submitOidc() {
   await createWindow('oidc', 0, () => form.submit())
 }
 
-async function submit2FA(enable2FA: HTMLDivElement) {
-  if (!enable2FA.querySelector('input')?.checked) return
+async function submit2FA(checkbox2FA: HTMLInputElement) {
+  if (!checkbox2FA.checked) return
 
   const form = document.querySelector<HTMLFormElement>('#package-settings')
   const radio = document.querySelector<HTMLInputElement>(
