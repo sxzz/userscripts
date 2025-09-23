@@ -4,7 +4,7 @@
 
 - [Force Enable Vue Devtools](https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/vue-devtools.user.js) - Force enable Vue Devtools for production-build apps of Vue 2 or Vue 3.
 - [macOS Font](https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/macos-font.user.js) - Enable antialiased fonts for macOS.
-- [Set npm Trusted Publisher](https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/npm-trusted-publisher.user.js) - Set npm Trusted Publisher for packages on npmjs.com. Thanks to [Anthony](https://github.com/antfu)'s idea.
+- [Set npm Trusted Publisher](./src/npm-trusted-publisher.md) - Set npm Trusted Publisher for packages on npmjs.com. Thanks to [Anthony](https://github.com/antfu)'s idea.
 
 ## Credits
 
