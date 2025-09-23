@@ -2,7 +2,7 @@
 // @name               Set npm Trusted Publisher
 // @name:zh-CN         设置 npm Trusted Publisher
 // @name:zh-TW         設定 npm Trusted Publisher
-// @version            1.0.0
+// @version            1.0.1
 // @description        Set npm Trusted Publisher for packages on npmjs.com.
 // @description:zh-CN  为 npmjs.com 上的包设置 npm Trusted Publisher。
 // @description:zh-TW  為 npmjs.com 上的包設定 npm Trusted Publisher。
