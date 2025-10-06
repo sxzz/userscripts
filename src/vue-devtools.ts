@@ -23,8 +23,17 @@ function main() {
 }
 
 function getDevtoolsHook() {
-  // @ts-expect-error
-  return globalThis.__VUE_DEVTOOLS_GLOBAL_HOOK__ as any
+  try {
+    return (
+      // @ts-expect-error
+      (globalThis.__VUE_DEVTOOLS_GLOBAL_HOOK__ as any) ||
+      (typeof unsafeWindow !== 'undefined' &&
+        // @ts-expect-error
+        (unsafeWindow.__VUE_DEVTOOLS_GLOBAL_HOOK__ as any)) ||
+      // @ts-expect-error
+      (__VUE_DEVTOOLS_GLOBAL_HOOK__ as any)
+    )
+  } catch {}
 }
 
 function registerVue2App(app: any) {
