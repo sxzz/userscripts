@@ -2,7 +2,7 @@
   "name": "userscripts",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@10.17.1",
+  "packageManager": "pnpm@10.18.2",
   "type": "module",
   "license": "MIT",
   "homepage": "https://github.com/sxzz/userscripts#readme",
@@ -24,16 +24,16 @@
     "format": "prettier --cache --write ."
   },
   "devDependencies": {
-    "@sxzz/eslint-config": "^7.2.1",
+    "@sxzz/eslint-config": "^7.2.7",
     "@sxzz/prettier-config": "^2.2.4",
     "@types/hosted-git-info": "^3.0.5",
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.7.1",
     "@types/tampermonkey": "^5.0.4",
-    "eslint": "^9.36.0",
-    "hosted-git-info": "^9.0.0",
+    "eslint": "^9.37.0",
+    "hosted-git-info": "^9.0.2",
     "prettier": "^3.6.2",
-    "tsdown": "^0.15.4",
-    "typescript": "^5.9.2"
+    "tsdown": "^0.15.6",
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=20.19.0"
