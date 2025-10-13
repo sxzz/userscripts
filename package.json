@@ -27,7 +27,7 @@
     "@sxzz/eslint-config": "^7.2.7",
     "@sxzz/prettier-config": "^2.2.4",
     "@types/hosted-git-info": "^3.0.5",
-    "@types/node": "^24.7.1",
+    "@types/node": "^24.7.2",
     "@types/tampermonkey": "^5.0.4",
     "eslint": "^9.37.0",
     "hosted-git-info": "^9.0.2",
