@@ -335,8 +335,7 @@
 						status.ttl = ttl;
 						status.start = start;
 						status.now = cachedNow || getNow();
-						const age = status.now - start;
-						status.remainingTTL = ttl - age;
+						status.remainingTTL = ttl - (status.now - start);
 					}
 				};
 				let cachedNow = 0;
@@ -356,8 +355,7 @@
 					const ttl = ttls[index];
 					const start = starts[index];
 					if (!ttl || !start) return Infinity;
-					const age = (cachedNow || getNow()) - start;
-					return ttl - age;
+					return ttl - ((cachedNow || getNow()) - start);
 				};
 				this.#isStale = (index) => {
 					const s = starts[index];
@@ -702,7 +700,8 @@
 					} else options.status.fetchResolved = true;
 					if (aborted && !ignoreAbort && !updateCache) return fetchFail(ac.signal.reason);
 					const bf$1 = p;
-					if (this.#valList[index] === p) if (v$1 === void 0) if (bf$1.__staleWhileFetching !== void 0) this.#valList[index] = bf$1.__staleWhileFetching;
+					const vl = this.#valList[index];
+					if (vl === p || ignoreAbort && updateCache && vl === void 0) if (v$1 === void 0) if (bf$1.__staleWhileFetching !== void 0) this.#valList[index] = bf$1.__staleWhileFetching;
 					else this.#delete(k, "fetch");
 					else {
 						if (options.status) options.status.fetchUpdated = true;
@@ -1046,7 +1045,6 @@
 			treepath: "tree",
 			blobpath: "tree",
 			editpath: "-/edit",
-			httpstemplate: ({ auth, domain, user, project, committish }) => `git+https://${maybeJoin(auth, "@")}${domain}/${user}/${project}.git${maybeJoin("#", committish)}`,
 			tarballtemplate: ({ domain, user, project, committish }) => `https://${domain}/${user}/${project}/repository/archive.tar.gz?ref=${maybeEncode(committish || "HEAD")}`,
 			extract: (url$1) => {
 				const path = url$1.pathname.slice(1);
@@ -1150,10 +1148,10 @@
 			const firstColon = arg.indexOf(":");
 			const proto = arg.slice(0, firstColon + 1);
 			if (Object.prototype.hasOwnProperty.call(protocols, proto)) return arg;
+			if (arg.substr(firstColon, 3) === "://") return arg;
 			const firstAt = arg.indexOf("@");
 			if (firstAt > -1) if (firstAt > firstColon) return `git+ssh://${arg}`;
 			else return arg;
-			if (arg.indexOf("//") === firstColon + 1) return arg;
 			return `${arg.slice(0, firstColon + 1)}//${arg.slice(firstColon + 1)}`;
 		};
 		const correctUrl = (giturl) => {
@@ -1188,8 +1186,7 @@
 		};
 		module.exports = (giturl, opts, { gitHosts, protocols }) => {
 			if (!giturl) return;
-			const correctedUrl = isGitHubShorthand(giturl) ? `github:${giturl}` : giturl;
-			const parsed = parseUrl$1(correctedUrl, protocols);
+			const parsed = parseUrl$1(isGitHubShorthand(giturl) ? `github:${giturl}` : giturl, protocols);
 			if (!parsed) return;
 			const gitHostShortcut = gitHosts.byShortcut[parsed.protocol];
 			const gitHostDomain = gitHosts.byDomain[parsed.hostname.startsWith("www.") ? parsed.hostname.slice(4) : parsed.hostname];
@@ -1251,9 +1248,7 @@
 			try {
 				const { protocol, hostname, pathname } = new URL(url$1);
 				if (!hostname) return null;
-				const proto = /(?:git\+)http:$/.test(protocol) ? "http:" : "https:";
-				const path = pathname.replace(/\.git$/, "");
-				return `${proto}//${hostname}${path}`;
+				return `${/(?:git\+)http:$/.test(protocol) ? "http:" : "https:"}//${hostname}${pathname.replace(/\.git$/, "")}`;
 			} catch {
 				return null;
 			}
