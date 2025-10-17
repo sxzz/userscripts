@@ -65,6 +65,22 @@ const scripts: ScriptConfig[] = [
       grant: 'GM_xmlhttpRequest',
     },
   },
+  {
+    id: 'text-autospace',
+    banner: {
+      name: 'Text Autospace',
+      'name:zh-CN': '文本自动间距',
+      'name:zh-TW': '文本自動間距',
+      version: '1.0.0',
+      description: 'Set text autospace for documents.',
+      'description:zh-CN': '为页面设置文本自动间距。',
+      'description:zh-TW': '為頁面設定文本自動間距。',
+      ...sharedBanner,
+      'run-at': 'document-body',
+      include: '*',
+      grant: 'GM_addStyle',
+    },
+  },
 ]
 
 export default defineConfig(
