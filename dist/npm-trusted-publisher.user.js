@@ -51,6 +51,7 @@
 	var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 	var require_commonjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 		Object.defineProperty(exports, "__esModule", { value: true });
+		exports.LRUCache = void 0;
 		const defaultPerf = typeof performance === "object" && performance && typeof performance.now === "function" ? performance : Date;
 		const warned = /* @__PURE__ */ new Set();
 		/* c8 ignore start */

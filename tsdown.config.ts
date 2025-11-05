@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { defineConfig, type Options } from 'tsdown'
+import { defineConfig, type UserConfig } from 'tsdown'
 
 const sharedBanner = {
   author: 'Kevin Deng <sxzz@sxzz.moe>',
@@ -85,7 +85,7 @@ const scripts: ScriptConfig[] = [
 ]
 
 export default defineConfig(
-  scripts.map((script): Options => {
+  scripts.map((script): UserConfig => {
     return {
       entry: `./src/${script.id}.ts`,
       platform: 'browser',
