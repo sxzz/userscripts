@@ -171,9 +171,15 @@ async function waitWindow(win: Window) {
     await sleep(100)
 
     let host: string | undefined
+    let text: string | undefined
     try {
       host = win.location.host
+      text = win.document.body.textContent
     } catch {}
-    if (host === 'www.npmjs.com') break
+    if (
+      host === 'www.npmjs.com' &&
+      !text?.includes('Two-Factor Authentication')
+    )
+      break
   }
 }
