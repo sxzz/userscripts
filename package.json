@@ -24,7 +24,7 @@
     "format": "prettier --cache --write ."
   },
   "devDependencies": {
-    "@sxzz/eslint-config": "^7.2.8",
+    "@sxzz/eslint-config": "^7.2.10",
     "@sxzz/prettier-config": "^2.2.4",
     "@types/hosted-git-info": "^3.0.5",
     "@types/node": "^24.10.0",
@@ -32,7 +32,7 @@
     "eslint": "^9.39.1",
     "hosted-git-info": "^9.0.2",
     "prettier": "^3.6.2",
-    "tsdown": "^0.16.1",
+    "tsdown": "^0.16.2",
     "typescript": "^5.9.3"
   },
   "engines": {
