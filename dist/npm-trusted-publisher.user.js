@@ -26,12 +26,13 @@
 	var __hasOwnProp = Object.prototype.hasOwnProperty;
 	var __esmMin = (fn, res) => () => (fn && (res = fn(fn = 0)), res);
 	var __commonJSMin = (cb, mod) => () => (mod || cb((mod = { exports: {} }).exports, mod), mod.exports);
-	var __export = (all) => {
+	var __export = (all, symbols) => {
 		let target = {};
 		for (var name in all) __defProp(target, name, {
 			get: all[name],
 			enumerable: true
 		});
+		if (symbols) __defProp(target, Symbol.toStringTag, { value: "Module" });
 		return target;
 	};
 	var __copyProps = (to, from, except, desc) => {
@@ -48,7 +49,7 @@
 		value: mod,
 		enumerable: true
 	}) : target, mod));
-	var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+	var __toCommonJS = (mod) => __hasOwnProp.call(mod, "module.exports") ? mod["module.exports"] : __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 	var require_commonjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 		Object.defineProperty(exports, "__esModule", { value: true });
 		exports.LRUCache = void 0;
@@ -172,6 +173,7 @@
 			#sizes;
 			#starts;
 			#ttls;
+			#autopurgeTimers;
 			#hasDispose;
 			#hasFetchMethod;
 			#hasDisposeAfter;
@@ -180,6 +182,7 @@
 				return {
 					starts: c.#starts,
 					ttls: c.#ttls,
+					autopurgeTimers: c.#autopurgeTimers,
 					sizes: c.#sizes,
 					keyMap: c.#keyMap,
 					keyList: c.#keyList,
@@ -313,15 +316,23 @@
 				const starts = new ZeroArray(this.#max);
 				this.#ttls = ttls;
 				this.#starts = starts;
+				const purgeTimers = this.ttlAutopurge ? new Array(this.#max) : void 0;
+				this.#autopurgeTimers = purgeTimers;
 				this.#setItemTTL = (index, ttl, start = this.#perf.now()) => {
 					starts[index] = ttl !== 0 ? start : 0;
 					ttls[index] = ttl;
-					if (ttl !== 0 && this.ttlAutopurge) {
+					if (purgeTimers?.[index]) {
+						clearTimeout(purgeTimers[index]);
+						purgeTimers[index] = void 0;
+					}
+					if (ttl !== 0 && purgeTimers) {
 						const t = setTimeout(() => {
 							if (this.#isStale(index)) this.#delete(this.#keyList[index], "expire");
 						}, ttl + 1);
 						/* c8 ignore start */
 						if (t.unref) t.unref();
+						/* c8 ignore stop */
+						purgeTimers[index] = t;
 					}
 				};
 				this.#updateItemAge = (index) => {
@@ -640,6 +651,10 @@
 					]);
 				}
 				this.#removeItemSize(head);
+				if (this.#autopurgeTimers?.[head]) {
+					clearTimeout(this.#autopurgeTimers[head]);
+					this.#autopurgeTimers[head] = void 0;
+				}
 				if (free) {
 					this.#keyList[head] = void 0;
 					this.#valList[head] = void 0;
@@ -830,7 +845,7 @@
 			memo(k, memoOptions = {}) {
 				const memoMethod = this.#memoMethod;
 				if (!memoMethod) throw new Error("no memoMethod provided to constructor");
-				const { context, forceRefresh,...options } = memoOptions;
+				const { context, forceRefresh, ...options } = memoOptions;
 				const v = this.get(k, options);
 				if (!forceRefresh && v !== void 0) return v;
 				const vv = memoMethod(k, v, {
@@ -886,6 +901,10 @@
 				if (this.#size !== 0) {
 					const index = this.#keyMap.get(k);
 					if (index !== void 0) {
+						if (this.#autopurgeTimers?.[index]) {
+							clearTimeout(this.#autopurgeTimers?.[index]);
+							this.#autopurgeTimers[index] = void 0;
+						}
 						deleted = true;
 						if (this.#size === 1) this.#clear(reason);
 						else {
@@ -946,6 +965,8 @@
 				if (this.#ttls && this.#starts) {
 					this.#ttls.fill(0);
 					this.#starts.fill(0);
+					for (const t of this.#autopurgeTimers ?? []) if (t !== void 0) clearTimeout(t);
+					this.#autopurgeTimers?.fill(void 0);
 				}
 				if (this.#sizes) this.#sizes.fill(0);
 				this.#head = 0;
