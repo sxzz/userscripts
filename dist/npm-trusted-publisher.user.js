@@ -1489,17 +1489,12 @@
 		}
 		const submitButton = document.querySelector("#oidc button[type=\"submit\"]");
 		if (submitButton) {
-			const label2FA = document.createElement("div");
-			label2FA.innerHTML = `<label style="font-size: 20px; font-weight: bold"><input type="checkbox"> Enable 2FA</label>`;
-			submitButton.parentElement?.before(label2FA);
-			const checkbox2FA = label2FA.querySelector("input");
-			checkbox2FA.checked = !document.querySelector("#package-settings_publishingAccess_tfa-always-required")?.checked;
 			submitButton.style.fontSize = "30px";
 			submitButton.style.fontWeight = "bold";
 			submitButton.addEventListener("click", async (event) => {
 				event.stopPropagation();
 				event.preventDefault();
-				await Promise.all([submitOidc(), submit2FA(checkbox2FA)]);
+				await submitOidc();
 				location.reload();
 			});
 		}
@@ -1512,16 +1507,6 @@
 		}
 		form.target = "oidc";
 		await createWindow("oidc", 0, () => form.submit());
-	}
-	async function submit2FA(checkbox2FA) {
-		if (!checkbox2FA.checked) return;
-		const form = document.querySelector("#package-settings");
-		const radio = document.querySelector("#package-settings_publishingAccess_tfa-always-required");
-		if (form && radio) {
-			radio.checked = true;
-			form.target = "2fa";
-			await createWindow("2fa", 1, () => form.submit());
-		} else console.warn("Failed to find 2FA form, skipping...");
 	}
 	async function fetchRepoInfo() {
 		const pkgName = new URL(location.href).pathname.split("/").slice(2, -1).join("/");

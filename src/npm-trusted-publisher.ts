@@ -63,15 +63,15 @@ async function autofill(button: HTMLButtonElement) {
     '#oidc button[type="submit"]',
   )
   if (submitButton) {
-    const label2FA = document.createElement('div')
-    label2FA.innerHTML = `<label style="font-size: 20px; font-weight: bold"><input type="checkbox"> Enable 2FA</label>`
-    submitButton.parentElement?.before(label2FA)
+    // const label2FA = document.createElement('div')
+    // label2FA.innerHTML = `<label style="font-size: 20px; font-weight: bold"><input type="checkbox"> Enable 2FA</label>`
+    // submitButton.parentElement?.before(label2FA)
 
-    const checkbox2FA = label2FA.querySelector('input')!
-    const npmRadio2FA = document.querySelector<HTMLInputElement>(
-      '#package-settings_publishingAccess_tfa-always-required',
-    )
-    checkbox2FA.checked = !npmRadio2FA?.checked
+    // const checkbox2FA = label2FA.querySelector('input')!
+    // const npmRadio2FA = document.querySelector<HTMLInputElement>(
+    //   '#package-settings_publishingAccess_tfa-always-required',
+    // )
+    // checkbox2FA.checked = !npmRadio2FA?.checked
 
     submitButton.style.fontSize = '30px'
     submitButton.style.fontWeight = 'bold'
@@ -79,7 +79,8 @@ async function autofill(button: HTMLButtonElement) {
       event.stopPropagation()
       event.preventDefault()
 
-      await Promise.all([submitOidc(), submit2FA(checkbox2FA)])
+      // await submit2FA(checkbox2FA)
+      await submitOidc()
       location.reload()
     })
   }
@@ -97,22 +98,22 @@ async function submitOidc() {
   await createWindow('oidc', 0, () => form.submit())
 }
 
-async function submit2FA(checkbox2FA: HTMLInputElement) {
-  if (!checkbox2FA.checked) return
+// async function submit2FA(checkbox2FA: HTMLInputElement) {
+//   if (!checkbox2FA.checked) return
 
-  const form = document.querySelector<HTMLFormElement>('#package-settings')
-  const radio = document.querySelector<HTMLInputElement>(
-    '#package-settings_publishingAccess_tfa-always-required',
-  )
+//   const form = document.querySelector<HTMLFormElement>('#package-settings')
+//   const radio = document.querySelector<HTMLInputElement>(
+//     '#package-settings_publishingAccess_tfa-always-required',
+//   )
 
-  if (form && radio) {
-    radio.checked = true
-    form.target = '2fa'
-    await createWindow('2fa', 1, () => form.submit())
-  } else {
-    console.warn('Failed to find 2FA form, skipping...')
-  }
-}
+//   if (form && radio) {
+//     radio.checked = true
+//     form.target = '2fa'
+//     await createWindow('2fa', 1, () => form.submit())
+//   } else {
+//     console.warn('Failed to find 2FA form, skipping...')
+//   }
+// }
 
 async function fetchRepoInfo() {
   const url = new URL(location.href)
