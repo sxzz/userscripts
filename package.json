@@ -1,20 +1,23 @@
 {
   "name": "userscripts",
+  "type": "module",
   "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@10.24.0",
-  "type": "module",
+  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "license": "MIT",
+  "funding": "https://github.com/sponsors/sxzz",
   "homepage": "https://github.com/sxzz/userscripts#readme",
-  "bugs": {
-    "url": "https://github.com/sxzz/userscripts/issues"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sxzz/userscripts.git"
   },
-  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
-  "funding": "https://github.com/sponsors/sxzz",
+  "bugs": {
+    "url": "https://github.com/sxzz/userscripts/issues"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "lint": "eslint --cache .",
     "lint:fix": "pnpm run lint --fix",
@@ -35,9 +38,6 @@
     "prettier": "^3.7.4",
     "tsdown": "^0.17.0",
     "typescript": "^5.9.3"
-  },
-  "engines": {
-    "node": ">=20.19.0"
   },
   "prettier": "@sxzz/prettier-config"
 }
