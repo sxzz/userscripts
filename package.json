@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@10.24.0",
+  "packageManager": "pnpm@10.25.0",
   "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/sxzz",
@@ -27,16 +27,16 @@
     "format": "prettier --cache --write ."
   },
   "devDependencies": {
-    "@sxzz/eslint-config": "^7.4.1",
+    "@sxzz/eslint-config": "^7.4.3",
     "@sxzz/prettier-config": "^2.2.6",
     "@types/hosted-git-info": "^3.0.5",
-    "@types/node": "^24.10.1",
+    "@types/node": "^24.10.4",
     "@types/tampermonkey": "^5.0.5",
-    "@typescript/native-preview": "7.0.0-dev.20251208.1",
-    "eslint": "^9.39.1",
+    "@typescript/native-preview": "7.0.0-dev.20251214.1",
+    "eslint": "^9.39.2",
     "hosted-git-info": "^9.0.2",
     "prettier": "^3.7.4",
-    "tsdown": "^0.17.1",
+    "tsdown": "^0.17.4",
     "typescript": "^5.9.3"
   },
   "prettier": "@sxzz/prettier-config"
