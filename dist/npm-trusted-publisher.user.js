@@ -132,7 +132,7 @@
 				return this.heap[--this.length];
 			}
 		};
-		exports.LRUCache = class LRUCache$1 {
+		exports.LRUCache = class LRUCache {
 			#max;
 			#maxSize;
 			#dispose;
@@ -304,7 +304,7 @@
 					const code = "LRU_CACHE_UNBOUNDED";
 					if (shouldWarn(code)) {
 						warned.add(code);
-						emitWarning("TTL caching without ttlAutopurge, max, or maxSize can result in unbounded memory consumption.", "UnboundedCacheWarning", code, LRUCache$1);
+						emitWarning("TTL caching without ttlAutopurge, max, or maxSize can result in unbounded memory consumption.", "UnboundedCacheWarning", code, LRUCache);
 					}
 				}
 			}
@@ -1001,8 +1001,8 @@
 			bugstemplate: ({ domain, user, project }) => `https://${domain}/${user}/${project}/issues`,
 			hashformat: formatHashFragment
 		};
-		const hosts$1 = {};
-		hosts$1.github = {
+		const hosts = {};
+		hosts.github = {
 			protocols: [
 				"git:",
 				"http:",
@@ -1018,10 +1018,10 @@
 			filetemplate: ({ auth, user, project, committish, path }) => `https://${maybeJoin(auth, "@")}raw.githubusercontent.com/${user}/${project}/${maybeEncode(committish || "HEAD")}/${path}`,
 			gittemplate: ({ auth, domain, user, project, committish }) => `git://${maybeJoin(auth, "@")}${domain}/${user}/${project}.git${maybeJoin("#", committish)}`,
 			tarballtemplate: ({ domain, user, project, committish }) => `https://codeload.${domain}/${user}/${project}/tar.gz/${maybeEncode(committish || "HEAD")}`,
-			extract: (url$1) => {
-				let [, user, project, type, committish] = url$1.pathname.split("/", 5);
+			extract: (url) => {
+				let [, user, project, type, committish] = url.pathname.split("/", 5);
 				if (type && type !== "tree") return;
-				if (!type) committish = url$1.hash.slice(1);
+				if (!type) committish = url.hash.slice(1);
 				if (project && project.endsWith(".git")) project = project.slice(0, -4);
 				if (!user || !project) return;
 				return {
@@ -1031,7 +1031,7 @@
 				};
 			}
 		};
-		hosts$1.bitbucket = {
+		hosts.bitbucket = {
 			protocols: [
 				"git+ssh:",
 				"git+https:",
@@ -1044,19 +1044,19 @@
 			editpath: "?mode=edit",
 			edittemplate: ({ domain, user, project, committish, treepath, path, editpath }) => `https://${domain}/${user}/${project}${maybeJoin("/", treepath, "/", maybeEncode(committish || "HEAD"), "/", path, editpath)}`,
 			tarballtemplate: ({ domain, user, project, committish }) => `https://${domain}/${user}/${project}/get/${maybeEncode(committish || "HEAD")}.tar.gz`,
-			extract: (url$1) => {
-				let [, user, project, aux] = url$1.pathname.split("/", 4);
+			extract: (url) => {
+				let [, user, project, aux] = url.pathname.split("/", 4);
 				if (["get"].includes(aux)) return;
 				if (project && project.endsWith(".git")) project = project.slice(0, -4);
 				if (!user || !project) return;
 				return {
 					user,
 					project,
-					committish: url$1.hash.slice(1)
+					committish: url.hash.slice(1)
 				};
 			}
 		};
-		hosts$1.gitlab = {
+		hosts.gitlab = {
 			protocols: [
 				"git+ssh:",
 				"git+https:",
@@ -1068,8 +1068,8 @@
 			blobpath: "tree",
 			editpath: "-/edit",
 			tarballtemplate: ({ domain, user, project, committish }) => `https://${domain}/${user}/${project}/repository/archive.tar.gz?ref=${maybeEncode(committish || "HEAD")}`,
-			extract: (url$1) => {
-				const path = url$1.pathname.slice(1);
+			extract: (url) => {
+				const path = url.pathname.slice(1);
 				if (path.includes("/-/") || path.includes("/archive.tar.gz")) return;
 				const segments = path.split("/");
 				let project = segments.pop();
@@ -1079,11 +1079,11 @@
 				return {
 					user,
 					project,
-					committish: url$1.hash.slice(1)
+					committish: url.hash.slice(1)
 				};
 			}
 		};
-		hosts$1.gist = {
+		hosts.gist = {
 			protocols: [
 				"git:",
 				"git+ssh:",
@@ -1107,8 +1107,8 @@
 			bugstemplate: ({ domain, project }) => `https://${domain}/${project}`,
 			gittemplate: ({ domain, project, committish }) => `git://${domain}/${project}.git${maybeJoin("#", committish)}`,
 			tarballtemplate: ({ project, committish }) => `https://codeload.github.com/gist/${project}/tar.gz/${maybeEncode(committish || "HEAD")}`,
-			extract: (url$1) => {
-				let [, user, project, aux] = url$1.pathname.split("/", 4);
+			extract: (url) => {
+				let [, user, project, aux] = url.pathname.split("/", 4);
 				if (aux === "raw") return;
 				if (!project) {
 					if (!user) return;
@@ -1119,14 +1119,14 @@
 				return {
 					user,
 					project,
-					committish: url$1.hash.slice(1)
+					committish: url.hash.slice(1)
 				};
 			},
 			hashformat: function(fragment) {
 				return fragment && "file-" + formatHashFragment(fragment);
 			}
 		};
-		hosts$1.sourcehut = {
+		hosts.sourcehut = {
 			protocols: ["git+ssh:", "https:"],
 			domain: "git.sr.ht",
 			treepath: "tree",
@@ -1135,20 +1135,20 @@
 			httpstemplate: ({ domain, user, project, committish }) => `https://${domain}/${user}/${project}.git${maybeJoin("#", committish)}`,
 			tarballtemplate: ({ domain, user, project, committish }) => `https://${domain}/${user}/${project}/archive/${maybeEncode(committish) || "HEAD"}.tar.gz`,
 			bugstemplate: () => null,
-			extract: (url$1) => {
-				let [, user, project, aux] = url$1.pathname.split("/", 4);
+			extract: (url) => {
+				let [, user, project, aux] = url.pathname.split("/", 4);
 				if (["archive"].includes(aux)) return;
 				if (project && project.endsWith(".git")) project = project.slice(0, -4);
 				if (!user || !project) return;
 				return {
 					user,
 					project,
-					committish: url$1.hash.slice(1)
+					committish: url.hash.slice(1)
 				};
 			}
 		};
-		for (const [name, host] of Object.entries(hosts$1)) hosts$1[name] = Object.assign({}, defaults, host);
-		module.exports = hosts$1;
+		for (const [name, host] of Object.entries(hosts)) hosts[name] = Object.assign({}, defaults, host);
+		module.exports = hosts;
 	}));
 	var url_polyfill_exports = /* @__PURE__ */ __export({ URL: () => URL$1 });
 	var URL$1;
@@ -1189,7 +1189,7 @@
 		};
 	}));
 	var require_from_url = /* @__PURE__ */ __commonJSMin(((exports, module) => {
-		const parseUrl$1 = require_parse_url();
+		const parseUrl = require_parse_url();
 		const isGitHubShorthand = (arg) => {
 			const firstHash = arg.indexOf("#");
 			const firstSlash = arg.indexOf("/");
@@ -1208,7 +1208,7 @@
 		};
 		module.exports = (giturl, opts, { gitHosts, protocols }) => {
 			if (!giturl) return;
-			const parsed = parseUrl$1(isGitHubShorthand(giturl) ? `github:${giturl}` : giturl, protocols);
+			const parsed = parseUrl(isGitHubShorthand(giturl) ? `github:${giturl}` : giturl, protocols);
 			if (!parsed) return;
 			const gitHostShortcut = gitHosts.byShortcut[parsed.protocol];
 			const gitHostDomain = gitHosts.byDomain[parsed.hostname.startsWith("www.") ? parsed.hostname.slice(4) : parsed.hostname];
@@ -1266,18 +1266,18 @@
 		const fromUrl = require_from_url();
 		const parseUrl = require_parse_url();
 		const cache = new LRUCache({ max: 1e3 });
-		function unknownHostedUrl(url$1) {
+		function unknownHostedUrl(url) {
 			try {
-				const { protocol, hostname, pathname } = new URL(url$1);
+				const { protocol, hostname, pathname } = new URL(url);
 				if (!hostname) return null;
 				return `${/(?:git\+)http:$/.test(protocol) ? "http:" : "https:"}//${hostname}${pathname.replace(/\.git$/, "")}`;
 			} catch {
 				return null;
 			}
 		}
-		var GitHost$1 = class GitHost$1 {
+		var GitHost = class GitHost {
 			constructor(type, user, auth, project, committish, defaultRepresentation, opts = {}) {
-				Object.assign(this, GitHost$1.#gitHosts[type], {
+				Object.assign(this, GitHost.#gitHosts[type], {
 					type,
 					user,
 					auth,
@@ -1304,20 +1304,20 @@
 				"git+http:": { auth: true }
 			};
 			static addHost(name, host) {
-				GitHost$1.#gitHosts[name] = host;
-				GitHost$1.#gitHosts.byDomain[host.domain] = name;
-				GitHost$1.#gitHosts.byShortcut[`${name}:`] = name;
-				GitHost$1.#protocols[`${name}:`] = { name };
+				GitHost.#gitHosts[name] = host;
+				GitHost.#gitHosts.byDomain[host.domain] = name;
+				GitHost.#gitHosts.byShortcut[`${name}:`] = name;
+				GitHost.#protocols[`${name}:`] = { name };
 			}
 			static fromUrl(giturl, opts) {
 				if (typeof giturl !== "string") return;
 				const key = giturl + JSON.stringify(opts || {});
 				if (!cache.has(key)) {
 					const hostArgs = fromUrl(giturl, opts, {
-						gitHosts: GitHost$1.#gitHosts,
-						protocols: GitHost$1.#protocols
+						gitHosts: GitHost.#gitHosts,
+						protocols: GitHost.#protocols
 					});
-					cache.set(key, hostArgs ? new GitHost$1(...hostArgs) : void 0);
+					cache.set(key, hostArgs ? new GitHost(...hostArgs) : void 0);
 				}
 				return cache.get(key);
 			}
@@ -1326,13 +1326,13 @@
 				const r = manifest.repository;
 				const rurl = r && (typeof r === "string" ? r : typeof r === "object" && typeof r.url === "string" ? r.url : null);
 				if (!rurl) throw new Error("no repository");
-				const info = rurl && GitHost$1.fromUrl(rurl.replace(/^git\+/, ""), opts) || null;
+				const info = rurl && GitHost.fromUrl(rurl.replace(/^git\+/, ""), opts) || null;
 				if (info) return info;
 				const unk = unknownHostedUrl(rurl);
-				return GitHost$1.fromUrl(unk, opts) || unk;
+				return GitHost.fromUrl(unk, opts) || unk;
 			}
-			static parseUrl(url$1) {
-				return parseUrl(url$1);
+			static parseUrl(url) {
+				return parseUrl(url);
 			}
 			#fill(template, opts) {
 				if (typeof template !== "function") return null;
@@ -1423,16 +1423,16 @@
 				return this.sshurl(opts);
 			}
 		};
-		for (const [name, host] of Object.entries(hosts)) GitHost$1.addHost(name, host);
-		module.exports = GitHost$1;
+		for (const [name, host] of Object.entries(hosts)) GitHost.addHost(name, host);
+		module.exports = GitHost;
 	})))(), 1);
 	function sleep(ms) {
 		return new Promise((resolve) => setTimeout(resolve, ms));
 	}
-	function fetch(url$1) {
+	function fetch(url) {
 		return new Promise((resolve, reject) => {
 			GM_xmlhttpRequest({
-				url: url$1,
+				url,
 				method: "GET",
 				responseType: "json",
 				fetch: true,

@@ -97,24 +97,12 @@ export default defineConfig(
       outputOptions: {
         entryFileNames: '[name].user.js',
       },
-      plugins: [
-        {
-          name: 'prepend-banner',
-          generateBundle(_, bundle) {
-            const firstFile = Object.values(bundle)[0]
-            const banner = generateBanner({
-              ...script.banner,
-              ...sharedBanner,
-              namespace: `https://github.com/sxzz/userscripts/blob/main/dist/${script.id}.user.js`,
-              downloadURL: `https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/${script.id}.user.js`,
-            })
-            if (firstFile.type !== 'chunk') {
-              throw new Error('Unexpected bundle type')
-            }
-            firstFile.code = `${banner}\n${firstFile.code}`
-          },
-        },
-      ],
+      banner: generateBanner({
+        ...script.banner,
+        ...sharedBanner,
+        namespace: `https://github.com/sxzz/userscripts/blob/main/dist/${script.id}.user.js`,
+        downloadURL: `https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/${script.id}.user.js`,
+      }),
     }
   }),
 )
