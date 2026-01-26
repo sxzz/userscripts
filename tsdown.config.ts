@@ -15,6 +15,7 @@ const sharedBanner: Banner = {
 interface ScriptConfig {
   id: string
   banner: Banner
+  bundled?: string[]
 }
 
 const scripts: ScriptConfig[] = [
@@ -68,6 +69,7 @@ const scripts: ScriptConfig[] = [
       include: 'https://www.npmjs.com/package/*',
       grant: 'GM_xmlhttpRequest',
     },
+    bundled: ['lru-cache', 'hosted-git-info'],
   },
   {
     id: 'text-autospace',
@@ -100,6 +102,7 @@ export default defineConfig(
       outputOptions: {
         entryFileNames: '[name].user.js',
       },
+      inlineOnly: script.bundled,
       banner: generateBanner({
         ...script.banner,
         ...sharedBanner,
