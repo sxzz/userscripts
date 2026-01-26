@@ -1,7 +1,10 @@
 import path from 'node:path'
+import { toArray } from '@antfu/utils'
 import { defineConfig, type UserConfig } from 'tsdown'
 
-const sharedBanner = {
+type Banner = Record<string, string | string[]>
+
+const sharedBanner: Banner = {
   author: 'Kevin Deng <sxzz@sxzz.moe>',
   homepage: 'https://github.com/sxzz/userscripts',
   supportURL: 'https://github.com/sxzz/userscripts/issues',
@@ -11,7 +14,7 @@ const sharedBanner = {
 
 interface ScriptConfig {
   id: string
-  banner: Record<string, string>
+  banner: Banner
 }
 
 const scripts: ScriptConfig[] = [
@@ -107,12 +110,14 @@ export default defineConfig(
   }),
 )
 
-function generateBanner(properties: Record<string, string>) {
+function generateBanner(properties: Banner) {
   const maxLength = Math.max(
     ...Object.keys(properties).map((key) => key.length),
   )
-  const lines = Object.entries(properties).map(([key, value]) => {
-    return `// @${key.padEnd(maxLength + 1)} ${value}`
+  const lines = Object.entries(properties).flatMap(([key, value]) => {
+    return toArray(value).map(
+      (value) => `// @${key.padEnd(maxLength + 1)} ${value}`,
+    )
   })
   return `// ==UserScript==
 ${lines.join('\n')}

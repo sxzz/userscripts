@@ -26,7 +26,7 @@
 	var __hasOwnProp = Object.prototype.hasOwnProperty;
 	var __esmMin = (fn, res) => () => (fn && (res = fn(fn = 0)), res);
 	var __commonJSMin = (cb, mod) => () => (mod || cb((mod = { exports: {} }).exports, mod), mod.exports);
-	var __export = (all, symbols) => {
+	var __exportAll = (all, symbols) => {
 		let target = {};
 		for (var name in all) __defProp(target, name, {
 			get: all[name],
@@ -706,24 +706,24 @@
 					options,
 					context
 				};
-				const cb = (v$1, updateCache = false) => {
+				const cb = (v, updateCache = false) => {
 					const { aborted } = ac.signal;
-					const ignoreAbort = options.ignoreFetchAbort && v$1 !== void 0;
+					const ignoreAbort = options.ignoreFetchAbort && v !== void 0;
 					if (options.status) if (aborted && !updateCache) {
 						options.status.fetchAborted = true;
 						options.status.fetchError = ac.signal.reason;
 						if (ignoreAbort) options.status.fetchAbortIgnored = true;
 					} else options.status.fetchResolved = true;
 					if (aborted && !ignoreAbort && !updateCache) return fetchFail(ac.signal.reason);
-					const bf$1 = p;
+					const bf = p;
 					const vl = this.#valList[index];
-					if (vl === p || ignoreAbort && updateCache && vl === void 0) if (v$1 === void 0) if (bf$1.__staleWhileFetching !== void 0) this.#valList[index] = bf$1.__staleWhileFetching;
+					if (vl === p || ignoreAbort && updateCache && vl === void 0) if (v === void 0) if (bf.__staleWhileFetching !== void 0) this.#valList[index] = bf.__staleWhileFetching;
 					else this.#delete(k, "fetch");
 					else {
 						if (options.status) options.status.fetchUpdated = true;
-						this.set(k, v$1, fetchOpts.options);
+						this.set(k, v, fetchOpts.options);
 					}
-					return v$1;
+					return v;
 				};
 				const eb = (er) => {
 					if (options.status) {
@@ -737,23 +737,23 @@
 					const allowStaleAborted = aborted && options.allowStaleOnFetchAbort;
 					const allowStale = allowStaleAborted || options.allowStaleOnFetchRejection;
 					const noDelete = allowStale || options.noDeleteOnFetchRejection;
-					const bf$1 = p;
+					const bf = p;
 					if (this.#valList[index] === p) {
-						if (!noDelete || bf$1.__staleWhileFetching === void 0) this.#delete(k, "fetch");
-						else if (!allowStaleAborted) this.#valList[index] = bf$1.__staleWhileFetching;
+						if (!noDelete || bf.__staleWhileFetching === void 0) this.#delete(k, "fetch");
+						else if (!allowStaleAborted) this.#valList[index] = bf.__staleWhileFetching;
 					}
 					if (allowStale) {
-						if (options.status && bf$1.__staleWhileFetching !== void 0) options.status.returnedStale = true;
-						return bf$1.__staleWhileFetching;
-					} else if (bf$1.__returned === bf$1) throw er;
+						if (options.status && bf.__staleWhileFetching !== void 0) options.status.returnedStale = true;
+						return bf.__staleWhileFetching;
+					} else if (bf.__returned === bf) throw er;
 				};
 				const pcall = (res, rej) => {
 					const fmp = this.#fetchMethod?.(k, v, fetchOpts);
-					if (fmp && fmp instanceof Promise) fmp.then((v$1) => res(v$1 === void 0 ? void 0 : v$1), rej);
+					if (fmp && fmp instanceof Promise) fmp.then((v) => res(v === void 0 ? void 0 : v), rej);
 					ac.signal.addEventListener("abort", () => {
 						if (!options.ignoreFetchAbort || options.allowStaleOnFetchAbort) {
 							res(void 0);
-							if (options.allowStaleOnFetchAbort) res = (v$1) => cb(v$1, true);
+							if (options.allowStaleOnFetchAbort) res = (v) => cb(v, true);
 						}
 					});
 				};
@@ -1150,7 +1150,7 @@
 		for (const [name, host] of Object.entries(hosts)) hosts[name] = Object.assign({}, defaults, host);
 		module.exports = hosts;
 	}));
-	var url_polyfill_exports = /* @__PURE__ */ __export({ URL: () => URL$1 });
+	var url_polyfill_exports = /* @__PURE__ */ __exportAll({ URL: () => URL$1 });
 	var URL$1;
 	var init_url_polyfill = __esmMin((() => {
 		URL$1 = globalThis.URL;
