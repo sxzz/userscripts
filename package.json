@@ -34,7 +34,7 @@
     "@types/node": "^25.2.2",
     "@types/tampermonkey": "^5.0.5",
     "@typescript/native-preview": "7.0.0-dev.20260209.1",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "hosted-git-info": "^9.0.2",
     "prettier": "^3.8.1",
     "tsdown": "^0.20.3",
