@@ -35,7 +35,7 @@
     "@types/tampermonkey": "^5.0.5",
     "@typescript/native-preview": "7.0.0-dev.20260510.1",
     "eslint": "^10.2.0",
-    "hosted-git-info": "^9.0.2",
+    "hosted-git-info": "^10.0.0",
     "prettier": "^3.8.1",
     "tsdown": "^0.22.0",
     "typescript": "^6.0.2"

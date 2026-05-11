@@ -33,8 +33,8 @@ importers:
         specifier: ^10.2.0
         version: 10.2.0
       hosted-git-info:
-        specifier: ^9.0.2
-        version: 9.0.2
+        specifier: ^10.0.0
+        version: 10.0.0
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
@@ -1189,9 +1189,9 @@ packages:
   hookable@6.1.1:
     resolution: {integrity: sha512-U9LYDy1CwhMCnprUfeAZWZGByVbhd54hwepegYTK7Pi5NvqEj63ifz5z+xukznehT7i6NIZRu89Ay1AZmRsLEQ==}
 
-  hosted-git-info@9.0.2:
-    resolution: {integrity: sha512-M422h7o/BR3rmCQ8UHi7cyyMqKltdP9Uo+J2fXK+RSAY+wTcKOIRyhTuKv4qn+DJf3g+PL890AzId5KZpX+CBg==}
-    engines: {node: ^20.17.0 || >=22.9.0}
+  hosted-git-info@10.0.0:
+    resolution: {integrity: sha512-lNAjTCb4UcHGp4JSMbPIXCXOw4udy3Y0EiwXgLpHnTP2XrVY3aPLTp/S/YOxGqidsNRxwbw3qXbJq+g/5K+80A==}
+    engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
 
   html-entities@2.6.0:
     resolution: {integrity: sha512-kig+rMn/QOVRvr7c86gQ8lWXq+Hkv6CbAH1hLu+RG338StTpE8Z0b44SDVaqVu7HGKf27frdmUYEs9hTUX/cLQ==}
@@ -2848,7 +2848,7 @@ snapshots:
 
   hookable@6.1.1: {}
 
-  hosted-git-info@9.0.2:
+  hosted-git-info@10.0.0:
     dependencies:
       lru-cache: 11.2.5
 
