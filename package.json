@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@10.33.2",
+  "packageManager": "pnpm@10.33.4",
   "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/sxzz",
@@ -33,11 +33,11 @@
     "@types/hosted-git-info": "^3.0.5",
     "@types/node": "^25.5.2",
     "@types/tampermonkey": "^5.0.5",
-    "@typescript/native-preview": "7.0.0-dev.20260503.1",
+    "@typescript/native-preview": "7.0.0-dev.20260510.1",
     "eslint": "^10.2.0",
     "hosted-git-info": "^9.0.2",
     "prettier": "^3.8.1",
-    "tsdown": "^0.21.7",
+    "tsdown": "^0.22.0",
     "typescript": "^6.0.2"
   },
   "prettier": "@sxzz/prettier-config"
