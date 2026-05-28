@@ -18,10 +18,12 @@
 // @downloadURL        https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/macos-font.user.js
 // ==/UserScript==
 (function() {
+	//#region src/macos-font.ts
 	const css = String.raw;
 	GM_addStyle(css`
   :root {
     -webkit-font-smoothing: antialiased !important;
   }
 `);
+	//#endregion
 })();

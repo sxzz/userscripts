@@ -57,19 +57,20 @@ const scripts: ScriptConfig[] = [
   {
     id: 'npm-trusted-publisher',
     banner: {
-      name: 'Set npm Trusted Publisher',
-      'name:zh-CN': '设置 npm Trusted Publisher',
-      'name:zh-TW': '設定 npm Trusted Publisher',
-      version: '1.2.0',
-      description: 'Set npm Trusted Publisher for packages on npmjs.com.',
-      'description:zh-CN': '为 npmjs.com 上的包设置 npm Trusted Publisher。',
-      'description:zh-TW': '為 npmjs.com 上的包設定 npm Trusted Publisher。',
+      name: '[Deprecated] Set npm Trusted Publisher',
+      'name:zh-CN': '[已弃用] 设置 npm Trusted Publisher',
+      'name:zh-TW': '[已棄用] 設定 npm Trusted Publisher',
+      version: '2.0.0',
+      description:
+        'Deprecated. Use the `npm trust` CLI command (npm v11.10+) instead.',
+      'description:zh-CN':
+        '已弃用。请改用 `npm trust` CLI 命令（npm v11.10+）。',
+      'description:zh-TW':
+        '已棄用。請改用 `npm trust` CLI 命令（npm v11.10+）。',
       ...sharedBanner,
       'run-at': 'document-end',
       include: 'https://www.npmjs.com/package/*',
-      grant: 'GM_xmlhttpRequest',
     },
-    bundled: ['lru-cache', 'hosted-git-info'],
   },
   {
     id: 'text-autospace',

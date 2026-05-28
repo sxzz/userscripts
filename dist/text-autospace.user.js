@@ -18,10 +18,12 @@
 // @downloadURL        https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/text-autospace.user.js
 // ==/UserScript==
 (function() {
+	//#region src/text-autospace.ts
 	const css = String.raw;
 	GM_addStyle(css`
   :root {
     text-autospace: normal;
   }
 `);
+	//#endregion
 })();

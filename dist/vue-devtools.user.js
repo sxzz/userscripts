@@ -19,6 +19,7 @@
 // @downloadURL        https://github.com/sxzz/userscripts/raw/refs/heads/main/dist/vue-devtools.user.js
 // ==/UserScript==
 (function() {
+	//#region src/vue-devtools.ts
 	/* @license
 	* Refer from https://github.com/EHfive/userscripts/tree/master/userscripts/enbale-vue-devtools
 	*/
@@ -96,4 +97,5 @@
 		});
 		return observer;
 	}
+	//#endregion
 })();
